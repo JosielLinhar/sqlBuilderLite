@@ -1,8 +1,30 @@
+import { Button } from "@base-ui/react";
 import { Editor } from "@monaco-editor/react";
+import { Copy } from "lucide-react";
 
 export function CardContentRight() {
   return (
-    <Editor
+    <section>
+      <div className="h-[1px] bg-[#27272A] my-5"></div>
+
+      <div id="copy-btns" className="grid grid-cols-3 gap-2 mb-3 text-sm">
+        <Button className="w-full border border-[#27272A] rounded-lg px-3 py-2 cursor-pointer flex gap-2 items-center justify-center">
+          <Copy size={15} />
+          Copiar PostgreSQL
+        </Button>
+
+        <Button className="w-full border border-[#27272A] rounded-lg px-3 py-2 cursor-pointer flex gap-2 items-center justify-center">
+          <Copy size={15} />
+          Copiar Firebird
+        </Button>
+
+        <Button className="w-full border border-[#27272A] rounded-lg px-3 py-2 cursor-pointer flex gap-2 items-center justify-center">
+          <Copy size={15} />
+          Copiar SQL Server
+        </Button>
+      </div>
+
+      <Editor
       height="50vh"
       defaultLanguage="sql"
       theme="vs-dark"
@@ -21,5 +43,6 @@ export function CardContentRight() {
         scrollBeyondLastLine: false,
       }}
     />
+    </section>
   );
 }

@@ -24,15 +24,15 @@ const items = [
 export function CardContentLeft() {
   const listFields = ["id", "nome", "cpf", "cidade"]
   const listCondition = ["ativo = true", "and cidade = 'Curitiba'"]
-  const [fields, setFields] = useState(listFields.map((e) => `${e}\n`).join(""))
-  const [condition, setCondition] = useState(listCondition.map((e) => `${e}\n`).join(""));
+  const [fields, setFields] = useState(listFields.map((e) => `${e === listFields[listFields.length - 1] ? `${e}` : `${e}\n`}`).join(""));
+  const [condition, setCondition] = useState(listCondition.map((e) => `${e === listCondition[listCondition.length - 1] ? `${e}` : `${e}\n`}`).join(""));
 
   return (
     <Form className="flex flex-col gap-5 text-[#E4E4E7]">
       <Field>
         <FieldLabel htmlFor="select-query-types">Query Types</FieldLabel>
         <Select defaultValue={items[0].label} id="select-query-types">
-          <SelectTrigger className="w-full py-6 px-4 text-lg">
+          <SelectTrigger className="w-full py-6 px-4 text-lg border border-[#27272A]">
             <SelectValue />
           </SelectTrigger>
 
@@ -55,7 +55,7 @@ export function CardContentLeft() {
           id="input-table"
           type="text"
           placeholder="usuarios"
-          className="w-full py-6 px-4 placeholder:text-lg text-lg"
+          className="w-full py-6 px-4 placeholder:text-lg text-lg border border-[#27272A]"
         ></Input>
       </Field>
 
@@ -66,7 +66,7 @@ export function CardContentLeft() {
           type="text"
           value={fields}
           onChange={(e) => setFields(e.target.value)}
-          className="w-full py-4 px-4 placeholder:text-lg text-lg bg-[#18181B]"
+          className="w-full py-4 px-4 placeholder:text-lg text-lg bg-[#18181B] border border-[#27272A]"
         >
         </Textarea>
       </Field>
@@ -78,14 +78,14 @@ export function CardContentLeft() {
           type="text"
           value={condition}
           onChange={(e) => setCondition(e.target.value)}
-          className="w-full py-4 px-4 placeholder:text-lg text-lg bg-[#18181B]"
+          className="w-full py-4 px-4 placeholder:text-lg text-lg bg-[#18181B] border border-[#27272A]"
         >
         </Textarea>
       </Field>
 
       <div className="w-full grid grid-cols-2 gap-2">
-        <Button className="bg-[#3B82F6] w-full cursor-pointer">Gerar SQL</Button>
-        <Button className="bg-[#18181B] border border-white w-full cursor-pointer">Limpar</Button>
+        <Button className="bg-[#3B82F6] w-full cursor-pointer border border-[#27272A]">Gerar SQL</Button>
+        <Button className="bg-[#18181B] border border-[#27272A] w-full cursor-pointer">Limpar</Button>
       </div>
     </Form>
   );
