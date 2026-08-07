@@ -23,18 +23,13 @@ const items = [
 ];
 
 export function CardContentLeft() {
-  const listFields = ["id", "nome", "cpf", "cidade"]
-  const listCondition = ["ativo = true", "and cidade = 'Curitiba'"]
-
-  const {table, setTable} = useContext(TextoContext);
-  const [fields, setFields] = useState(listFields.map((e) => `${e === listFields[listFields.length - 1] ? `${e}` : `${e}\n`}`).join(""));
-  const [condition, setCondition] = useState(listCondition.map((e) => `${e === listCondition[listCondition.length - 1] ? `${e}` : `${e}\n`}`).join(""));
+  const {table, setTable, fields, setFields, queryType, setQueryType, condition, setCondition} = useContext(TextoContext);
 
   return (
     <Form className="flex flex-col gap-5 text-[#E4E4E7]">
       <Field>
         <FieldLabel htmlFor="select-query-types">Query Types</FieldLabel>
-        <Select defaultValue={items[0].label} id="select-query-types">
+        <Select defaultValue={items[0].label} id="select-query-types" onValueChange={(e) => setQueryType(e)}>
           <SelectTrigger className="w-full py-6 px-4 text-lg border border-[#27272A]">
             <SelectValue />
           </SelectTrigger>
@@ -43,7 +38,7 @@ export function CardContentLeft() {
             <SelectGroup>
               <SelectLabel>Query Types</SelectLabel>
               {items.map((item) => (
-                <SelectItem key={item.value} value={item.label}>
+                <SelectItem key={item.value} value={item.value}>
                   {item.label}
                 </SelectItem>
               ))}

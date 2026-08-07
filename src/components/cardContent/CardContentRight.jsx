@@ -5,7 +5,10 @@ import { useContext } from "react";
 import { TextoContext } from "../Context";
 
 export function CardContentRight() {
-  const {table} = useContext(TextoContext);
+  const { table } = useContext(TextoContext);
+  const { fields } = useContext(TextoContext);
+  const { queryType } = useContext(TextoContext);
+  const { condition } = useContext(TextoContext);
 
   return (
     <section>
@@ -29,25 +32,25 @@ export function CardContentRight() {
       </div>
 
       <Editor
-      height="50vh"
-      defaultLanguage="sql"
-      theme="vs-dark"
-      value={table}
-      options={{
-        fontSize: 15,
-        fontFamily: "JetBrains Mono",
-        minimap: { enabled: false },
-        lineNumbers: "on",
-        roundedSelection: true,
-        automaticLayout: true,
-        wordWrap: "on",
-        formatOnPaste: true,
-        formatOnType: true,
-        cursorBlinking: "smooth",
-        smoothScrolling: true,
-        scrollBeyondLastLine: false,
-      }}
-    />
+        height="50vh"
+        defaultLanguage="sql"
+        theme="vs-dark"
+        value={`${queryType} ${fields} \nfrom ${table} \nwhere ${condition}`}
+        options={{
+          fontSize: 15,
+          fontFamily: "JetBrains Mono",
+          minimap: { enabled: false },
+          lineNumbers: "on",
+          roundedSelection: true,
+          automaticLayout: true,
+          wordWrap: "on",
+          formatOnPaste: true,
+          formatOnType: true,
+          cursorBlinking: "smooth",
+          smoothScrolling: true,
+          scrollBeyondLastLine: false,
+        }}
+      />
     </section>
   );
 }
