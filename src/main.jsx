@@ -1,10 +1,13 @@
 import { StrictMode } from 'react'
+import {TextoProvider} from './components/Context.jsx'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <TextoProvider>
+      <App />
+    </TextoProvider>
   </StrictMode>,
 )

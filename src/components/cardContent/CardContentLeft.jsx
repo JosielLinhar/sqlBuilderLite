@@ -12,7 +12,8 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TextoContext } from "../Context";
 
 const items = [
   { label: "SELECT", value: "select" },
@@ -24,6 +25,8 @@ const items = [
 export function CardContentLeft() {
   const listFields = ["id", "nome", "cpf", "cidade"]
   const listCondition = ["ativo = true", "and cidade = 'Curitiba'"]
+
+  const {table, setTable} = useContext(TextoContext);
   const [fields, setFields] = useState(listFields.map((e) => `${e === listFields[listFields.length - 1] ? `${e}` : `${e}\n`}`).join(""));
   const [condition, setCondition] = useState(listCondition.map((e) => `${e === listCondition[listCondition.length - 1] ? `${e}` : `${e}\n`}`).join(""));
 
@@ -55,6 +58,8 @@ export function CardContentLeft() {
           id="input-table"
           type="text"
           placeholder="usuarios"
+          value={table}
+          onChange={(e) => setTable(e.target.value)}
           className="w-full py-6 px-4 placeholder:text-lg text-lg border border-[#27272A]"
         ></Input>
       </Field>

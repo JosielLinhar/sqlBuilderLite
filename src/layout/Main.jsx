@@ -4,9 +4,9 @@ import { CardContentRight } from "../components/cardContent/CardContentRight";
 
 export function Main() {
   return (
-    <div className="px-5 grid grid-cols-2 gap-5">
+    <div className="px-5 grid grid-cols-2 gap-5 w-7xl m-auto">
       <Card title="SQL Builder" cardContent={CardContentLeft()} />
-      <Card title="Generated SQL" cardContent={CardContentRight()} />
+      <Card title="Generated SQL" cardContent={CardContentRight(CardContentLeft())} />
     </div>
   );
 }
