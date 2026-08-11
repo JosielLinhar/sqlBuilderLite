@@ -1,21 +1,34 @@
 import { Button } from "@base-ui/react";
 import { Editor } from "@monaco-editor/react";
 import { Copy } from "lucide-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { TextoContext } from "../Context";
+import {Alert, AlertDescription, AlertTitle} from "../ui/alert"
 
 export function CardContentRight() {
   const { table } = useContext(TextoContext);
   const { fields } = useContext(TextoContext);
   const { queryType } = useContext(TextoContext);
   const { condition } = useContext(TextoContext);
+  const { formatedSql } = useContext(TextoContext);
+
+  const [copy, setCopy] = useState(false);
+  const copyPostgres = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopy(true);
+      setTimeout(() => setCopy(false), 2000);
+    } catch (err) {
+      console.error("Não foi possível copiar:", err)
+    }
+  }
 
   return (
     <section>
       <div className="h-px bg-[#27272A] my-5"></div>
 
       <div id="copy-btns" className="grid grid-cols-3 gap-2 mb-3 text-sm">
-        <Button className="w-full border border-[#27272A] rounded-lg px-3 py-2 cursor-pointer flex gap-2 items-center justify-center">
+        <Button className="w-full border border-[#27272A] rounded-lg px-3 py-2 cursor-pointer flex gap-2 items-center justify-center" onClick={(e) => copyPostgres(formatedSql)} >
           <Copy size={15} />
           Copiar PostgreSQL
         </Button>
@@ -35,7 +48,7 @@ export function CardContentRight() {
         height="50vh"
         defaultLanguage="sql"
         theme="vs-dark"
-        value={`${queryType} ${fields} \nfrom ${table} \nwhere ${condition}`}
+        value={formatedSql}
         options={{
           fontSize: 15,
           fontFamily: "JetBrains Mono",
