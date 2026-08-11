@@ -25,6 +25,13 @@ const items = [
 export function CardContentLeft() {
   const {table, setTable, fields, setFields, queryType, setQueryType, condition, setCondition} = useContext(TextoContext);
 
+  function ClearInfo() {
+    setTable('');
+    setFields('');
+    setQueryType('');
+    setCondition('');
+  };
+
   return (
     <Form className="flex flex-col gap-5 text-[#E4E4E7]">
       <Field>
@@ -65,6 +72,7 @@ export function CardContentLeft() {
           id="input-fields"
           type="text"
           value={fields}
+          placeholder={`id\nnome\ncpf\nscidade`}
           onChange={(e) => setFields(e.target.value)}
           className="w-full py-4 px-4 placeholder:text-lg text-lg bg-[#18181B] border border-[#27272A]"
         >
@@ -77,15 +85,16 @@ export function CardContentLeft() {
           id="input-codition"
           type="text"
           value={condition}
+          placeholder={`ativo = true\nand cidade = 'Curitiba'`}
           onChange={(e) => setCondition(e.target.value)}
-          className="w-full py-4 px-4 placeholder:text-lg text-lg bg-[#18181B] border border-[#27272A]"
+          className="w-full py-4 px-4 text-lg placeholder:text-lg bg-[#18181B] border border-[#27272A]"
         >
         </Textarea>
       </Field>
 
       <div className="w-full grid grid-cols-2 gap-2">
         <Button className="bg-[#3B82F6] w-full cursor-pointer border border-[#27272A]">Gerar SQL</Button>
-        <Button className="bg-[#18181B] border border-[#27272A] w-full cursor-pointer">Limpar</Button>
+        <Button className="bg-[#18181B] border border-[#27272A] w-full cursor-pointer" onClick={() => ClearInfo()}>Limpar</Button>
       </div>
     </Form>
   );
