@@ -10,10 +10,10 @@ export function TextoProvider({ children }) {
   const [fields, setFields] = useState(defaultFields.map((e) => `${e === defaultFields[defaultFields.length - 1] ? `${e}` : `${e}\n`}`).join(""))
   const [queryType, setQueryType] = useState("select");
   const [condition, setCondition] = useState(defaultCondition.map((e) => `${e === defaultCondition[defaultCondition.length - 1] ? `${e}` : `${e}\n`}`).join(""));
-  const formatedSql = `${queryType} ${fields.split("\n")}\nfrom ${table}\nwhere ${condition}`
+  const [formatedSql, setFormatedSql] = useState('Clique em "Gerar SQL" para visualizar o resultado aqui.');
 
   return (
-    <TextoContext.Provider value={{ table, setTable, fields, setFields, queryType, setQueryType, condition, setCondition, formatedSql }}>
+    <TextoContext.Provider value={{ table, setTable, fields, setFields, queryType, setQueryType, condition, setCondition, formatedSql, setFormatedSql }}>
       {children}
     </TextoContext.Provider>
   );
