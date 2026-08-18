@@ -12,8 +12,10 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { TextoContext } from "../Context";
+import { GenerateSql } from "../GenerateSql";
+import { ValidateQueryType } from "../ValidateQueryType";
 
 const items = [
   { label: "SELECT", value: "select" },
@@ -23,7 +25,7 @@ const items = [
 ];
 
 export function CardContentLeft() {
-  const {                                                                                   
+  const {
     table,
     setTable,
     fields,
@@ -34,24 +36,6 @@ export function CardContentLeft() {
     setCondition,
     setFormatedSql,
   } = useContext(TextoContext);
-
-  function GenerateSql() {
-    if (queryType === "update") {
-      setFormatedSql(
-        `${queryType} ${table}\nset ${fields.split("\n")}\nwhere ${condition}`
-      );
-      return;
-    } else if (queryType === "insert") {
-      setFormatedSql(
-        `${queryType} into ${table} (${fields.split("\n")})\nvalues (${condition})`
-      );
-      return;
-    } else if (queryType === "delete") {
-      setFormatedSql(`${queryType} from ${table}\nwhere ${condition}`);
-      return;
-    }
-    setFormatedSql(`${queryType} ${fields.split("\n")}\nfrom ${table}\nwhere ${condition}`);
-  }
 
   function ClearInfo() {
     setTable("");
@@ -99,7 +83,7 @@ export function CardContentLeft() {
       </Field>
 
       <Field>
-        <FieldLabel htmlFor="input-fields">Fields</FieldLabel>
+        <FieldLabel htmlFor="input-fields">{ValidateQueryType(queryType, 'fields')}</FieldLabel>
         <Textarea
           id="input-fields"
           type="text"
@@ -111,7 +95,7 @@ export function CardContentLeft() {
       </Field>
 
       <Field>
-        <FieldLabel htmlFor="input-codition">Condition</FieldLabel>
+        <FieldLabel htmlFor="input-codition">{ValidateQueryType(queryType, 'values')}</FieldLabel>
         <Textarea
           id="input-codition"
           type="text"
@@ -125,7 +109,7 @@ export function CardContentLeft() {
       <div className="w-full grid grid-cols-2 gap-2">
         <Button
           className="bg-[#3B82F6] w-full cursor-pointer border border-[#27272A]"
-          onClick={() => GenerateSql()}
+          onClick={() => GenerateSql(queryType, fields, table, condition, setFormatedSql)}
         >
           Gerar SQL
         </Button>
